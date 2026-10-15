@@ -1,0 +1,4 @@
+# Obsidian per-machine state; keep app.json/appearance if they matter later
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
