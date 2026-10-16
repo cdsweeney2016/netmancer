@@ -3510,7 +3510,7 @@ function labClick(e){ var t=e.target.closest('[data-l]'); if(!t) return; var k=t
   if(k==='setup'){ var L2=curLesson(); if(L2&&L2.setup){ C.lab.apply(net,L2.setup); labTermReset(); labAfterEdit(true); } return; }
   if(k.indexOf('lesson:')===0){ if(LAB.labId!==S.course.labId) labCourseStart(); labOpenLesson(k.slice(7)); return; }
   if(k==='course-reset'){ askConfirm(host,'Reset the course?','The course lab and all lesson progress are deleted.','Reset',function(){ if(S.course.labId) delete S.labs[S.course.labId]; S.course=fcourse(); LAB.labId=null; LAB.lessonId=null; S.labCfg.last=null; net=null; LAB.view='pick'; save(); labRender(); }); return; } }
-function labChange(e){ var t=e.target; if(t.getAttribute&&t.getAttribute('data-lset')==='realConsole'){ S.labCfg.realConsole=t.checked; save(); } }
+function labChange(e){ var t=e.target; if(t.getAttribute&&t.getAttribute('data-lset')==='realConsole'){ S.labCfg.realConsole=t.checked; save(); } if(t.hasAttribute&&t.hasAttribute('data-lcable')){ LAB.cable=t.value; LAB.tool='cable'; LAB.pend=null; labMapRefresh(); } }
 function labKeys(e){ if(e.target.closest('input,textarea,select')) return; if(e.key==='Escape'){ if(LAB.pend){ LAB.pend=null; labMapRefresh(); } closeMenus(); return; } if((e.key==='Delete'||e.key==='Backspace')&&LAB.sel){ e.preventDefault(); labDeleteSel(); } }
 /* dev demo and self-test */
 function labDemo(){ enterLab(null); labCourseStart(); var L1=lessonById('1.01'); C.lab.apply(net,L1.solution); S.course.done['1.01']={at:Date.now()}; labOpenLesson('1.02'); setTimeout(function(){ labConsole('SW1'); if(labTerm&&labTerm.inst){ labTerm.inst.run('enable'); labTerm.inst.run('show interfaces status'); } },200); }
@@ -3524,9 +3524,11 @@ function labSelfTest(){ var R=[], ok=function(c,l){ R.push({ok:!!c,label:l}); };
     var r=C.lab.link(net,'PC1','eth0','SW1','g0/1','copper'); labAfterEdit(true); ok(!r&&!!$('.lab-canvas .lk[data-c="#2e7d4b"]',root),'a patch cable brings the link up (green on the map)');
     labConsole('SW1'); labTerm.inst.run('enable'); labTerm.inst.run('show interfaces status'); ok(/Gi0\/1\s+\S*\s*connected/.test(labTerm.inst.text()),'console into SW1 shows Gi0/1 connected');
     S.labCfg.realConsole=true; labTermReset(); var c1=labTerm.inst.connect('SW1'); ok(c1===false&&/console cable/.test(labTerm.inst.text()),'realistic console access refuses SW1 without a console cable');
-    ok(!C.lab.link(net,'PC1','com1','SW1','con0','console')&&labTerm.inst.connect('SW1')===true,'a console cable from PC1 com1 to SW1 con0 allows the console'); S.labCfg.realConsole=false;
+    C.lab.unlink(net,'PC1','eth0'); var sel=$('.lab-mapbar [data-lcable]',root); sel.value='console'; sel.dispatchEvent(new Event('change',{bubbles:true})); ok(LAB.cable==='console'&&LAB.tool==='cable','choosing Console in the cable menu switches the Cable tool to console');
+    labCableClick('PC1',{clientX:0,clientY:0}); ok(LAB.pend&&LAB.pend.dev==='PC1'&&LAB.pend.if==='com1','clicking PC1 with a console cable picks com1');
+    labCableClick('SW1',{clientX:0,clientY:0}); ok(net.links.some(function(l){ return l.cable==='console'&&l.b.if==='con0'; })&&labTerm.inst.connect('SW1')===true,'clicking SW1 plugs it into con0 and the console is allowed'); S.labCfg.realConsole=false; sel.value='copper'; sel.dispatchEvent(new Event('change',{bubbles:true})); C.lab.link(net,'PC1','eth0','SW1','g0/1','copper'); LAB.tool='select'; labAfterEdit(true);
     C.lab.move(net,'PC1',300,250); labMapRefresh(); ok(net.devices.PC1.x===300&&/translate|x="278"|cx="300"|x="300"/.test($('.lab-canvas',root).innerHTML),'moving a device updates the map');
-    LAB.sel={link:0}; labDeleteSel(); ok(net.links.length===1&&net.links[0].cable==='console','Delete removes the selected cable');
+    LAB.sel={link:net.links.map(function(l){ return l.cable; }).indexOf('copper')}; labDeleteSel(); ok(net.links.length===1&&net.links[0].cable==='console','Delete removes the selected cable');
     LAB.sel={dev:'PC1'}; labDeleteSel(); var dp=$('.dlg .pri',root); if(dp) dp.click(); ok(!net.devices.PC1&&net.links.length===0,'removing PC1 drops its cables too');
     muted=false; saveNow(); muted=true; var st=readJ(PKEY); ok(!!(st&&st.labs&&st.labs[id]&&st.labs[id].net.devices.SW1),'the lab is saved in the profile');
     var imp=labImport(JSON.stringify({v:1,name:'Imported',net:C.serializeNet(net)})); ok(!!imp&&LAB.labId===imp&&!!net.devices.SW1,'export text imports as a new lab');
