@@ -1787,7 +1787,7 @@ function netsh(args){ var h=this.h(), net=this.net; var A=args.map(function(x){r
   if(name.toLowerCase()!=='ethernet') return 'The filename, directory name, or volume label syntax is incorrect.';
   var source=(kv.source||pos.shift()||'').toLowerCase();
   if(verb==='set'&&obj==='address'){
-    if(source==='dhcp'){ h.cfg.dhcp=true; h.cfg.addrs=[]; h.cfg.gw=null; h.cfg.released=false; refresh(net); return ''; }
+    if(source==='dhcp'){ if(pos.length) return 'The syntax supplied for this command is not valid. Check help for the correct syntax.\n\nUsage: set address [name=]<string>\n             [[source=]dhcp | [source=]static [address=]<IPv4 address> [mask=]<IPv4 mask> [gateway=]<IPv4 address>|none]'; h.cfg.dhcp=true; h.cfg.addrs=[]; h.cfg.gw=null; h.cfg.released=false; refresh(net); return ''; }
     if(source==='static'){ var ip=kv.address||kv.addr||pos.shift(), mask=kv.mask||pos.shift(), gw=kv.gateway||pos.shift(); if(!isIp(ip||'')||!isIp(mask||'')||maskLen(mask)<0) return 'One or more essential parameters were not entered.\nVerify the required parameters, and reenter them.'; if(gw&&gw.toLowerCase()!=='none'&&!isIp(gw)) return 'The gateway '+gw+' is not valid.'; h.cfg.dhcp=false; h.cfg.addrs=[{ip:ip,mask:mask}]; h.cfg.gw=(gw&&gw.toLowerCase()!=='none')?gw:null; refresh(net); return ''; }
     return 'One or more essential parameters were not entered.\nVerify the required parameters, and reenter them.'; }
   if((verb==='set'||verb==='add')&&(obj==='dns'||obj==='dnsservers'||obj==='dnsserver')){
@@ -2738,6 +2738,7 @@ var cliCases=[
  {topo:'ground',dev:'THERMO-1',lines:['ss -tulpn'],expect:/tcp\s+LISTEN\s+0\s+128\s+0\.0\.0\.0:22/},
  {topo:'ground',dev:'SW1',lines:['enable','show interfaces g0/1'],expect:/Full-duplex, 1000Mb\/s/},
  {topo:'ground',dev:'SW1',lines:['enable','conf t','hostname bad!name'],expect:/illegal characters/},
+ {topo:'ground',dev:'PC-DANA',lines:['netsh interface ip set address "Ethernet" dhcp 10.10.10.1'],expect:/syntax supplied for this command is not valid/},
  {topo:'ground',dev:'SW1',lines:['enable','conf t','interface vlan 99','end','show ip interface brief'],expect:/Vlan99\s+unassigned/},
  {topo:'ground',dev:'SW1',lines:['enable','show running-config | include default-gateway'],expect:/^ip default-gateway 10\.10\.10\.1$/},
  {topo:'ground',dev:'PC-DANA',lines:['ipc\t'],expect:/^ipconfig $/},
@@ -3435,7 +3436,8 @@ function labHowTo(){ return '<div class="card"><h3>How the editor works</h3><ul 
 function labLessonPanel(elm){ var rec=S.labs[LAB.labId]; if(!rec||!rec.course){ elm.innerHTML='<div class="card"><h2>Free lab</h2><p class="small muted">Build whatever you like here. Course lessons run in the course lab.</p><button type="button" class="btn pri" data-l="course">Open the course lab</button></div>'+labHowTo(); return; }
   var L=curLesson(); if(!L){ elm.innerHTML='<div class="card"><h2>Course</h2><p class="small">Pick a lesson in the Course tab.</p></div>'; return; }
   var idx=lessonIndex(L.id), list=lessonList(), prev=list[idx-1], next=list[idx+1], mod=K.course.modules.filter(function(m){ return m.id===L.module; })[0], g=labGradeNow(), done=!!S.course.done[L.id], hints=S.course.hints[L.id]||0;
-  var h='<div class="card lab-lesson"><div class="small muted">'+esc(mod?mod.title:'')+' · lesson '+(idx+1)+' of '+list.length+'</div><h2>'+esc(L.id+' '+L.title)+(done?' <span class="tag ok">done</span>':'')+'</h2><div>'+(L.obj||[]).map(function(o){ return '<span class="tag">'+esc(objLabel(o))+'</span>'; }).join('')+'</div>'+briefHtml(L.brief);
+  var missing=(L.requires||[]).filter(function(r){ var rl=lessonById(r); return rl&&rl.kind!=='stub'&&!S.course.done[r]; });
+  var h='<div class="card lab-lesson"><div class="small muted">'+esc(mod?mod.title:'')+' · lesson '+(idx+1)+' of '+list.length+'</div><h2>'+esc(L.id+' '+L.title)+(done?' <span class="tag ok">done</span>':'')+'</h2>'+(missing.length&&!done?'<div class="hint"><b>Builds on '+missing.map(function(r){ return '<a href="#" data-l="lesson:'+r+'">'+esc(r+' '+lessonById(r).title)+'</a>'; }).join(', ')+'</b>, not done yet. The lab is probably missing what that lesson sets up (ports, addresses, services), so goals here will not pass until it is done.</div>':'')+'<div>'+(L.obj||[]).map(function(o){ return '<span class="tag">'+esc(objLabel(o))+'</span>'; }).join('')+'</div>'+briefHtml(L.brief);
   if(L.kind==='stub') h+='<p class="small muted">'+esc(L.note||'Coming in a later milestone.')+'</p>';
   else { h+='<h3>Goals</h3><ul class="checks">'+(g?g.results.map(function(r){ return '<li class="'+(r.ok?'ok':'bad')+'"><span class="i">'+(r.ok?'✓':'○')+'</span><span>'+esc(r.label)+(r.kind==='constraint'?' <span class="muted small">(must stay true)</span>':'')+'</span></li>'; }).join(''):'')+'</ul>';
     h+='<div class="row"><button type="button" class="btn pri" data-l="check">Check</button>'+(L.setup?'<button type="button" class="btn ghost" data-l="setup">Apply the setup again</button>':'')+'</div>';
@@ -3958,9 +3960,10 @@ function NotesApp(w,opts){ var b=w.body, path=opts.path||null, data=path?(vfsRea
    APP: Network Map (Scrying Glass)
    ===================================================================== */
 var previewNet=null;
-function linkState(n,l){ if(l.cable==='console') return {c:'#9a91ab',w:1.5,t:'console cable',dash:'1 3'}; var end=function(e){ var d=n.devices[e.dev]; if(d.type==='host') return null; return {d:d,st:d.rt.st[e.if],ec:d.rt.ec&&d.rt.ec[e.if],op:d.rt.op&&d.rt.op[e.if],dx:d.rt.dx&&d.rt.dx[e.if]}; }; var E=[end(l.a),end(l.b)].filter(Boolean);
-  if(E.some(function(x){return x.st==='err-disabled';})) return {c:'#c47f00',w:3,t:'err-disabled'};
-  if(E.some(function(x){return x.st==='disabled';})) return {c:'#b13e2c',w:2.5,t:'admin down',dash:'5 4'};
+function linkState(n,l){ if(l.cable==='console') return {c:'#9a91ab',w:1.5,t:'console cable',dash:'1 3'}; var end=function(e){ var d=n.devices[e.dev]; if(d.type==='host') return null; return {d:d,id:e.dev,ifn:C.shortIf(e.if),st:d.rt.st[e.if],ec:d.rt.ec&&d.rt.ec[e.if],op:d.rt.op&&d.rt.op[e.if],dx:d.rt.dx&&d.rt.dx[e.if]}; }; var E=[end(l.a),end(l.b)].filter(Boolean);
+  var who=function(st){ return E.filter(function(x){ return x.st===st; }).map(function(x){ return x.id+' '+x.ifn; }).join(' and '); };
+  if(E.some(function(x){return x.st==='err-disabled';})) return {c:'#c47f00',w:3,t:'err-disabled on '+who('err-disabled')};
+  if(E.some(function(x){return x.st==='disabled';})) return {c:'#b13e2c',w:2.5,t:'admin down: '+who('disabled')+' is shut down (no shutdown brings it up)',dash:'5 4'};
   if(E.some(function(x){return x.st!=='connected';})) return {c:'#9a91ab',w:2,t:'down',dash:'3 4'};
   if(E.some(function(x){return x.ec==='s';})) return {c:'#c47f00',w:3,t:'EtherChannel member suspended'};
   if(E.some(function(x){return x.dx&&x.dx.duplex!==x.dx.peerDuplex;})) return {c:'#c47f00',w:3,t:'duplex mismatch'};
