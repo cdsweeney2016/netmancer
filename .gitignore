@@ -1,4 +1,7 @@
 # Obsidian per-machine state; keep app.json/appearance if they matter later
-.obsidian/workspace.json
-.obsidian/workspace-mobile.json
-.obsidian/cache
+**/.obsidian/workspace.json
+**/.obsidian/workspace-mobile.json
+**/.obsidian/cache
+
+# local patch scripts and full-file backups from work sessions
+.bak/

@@ -6,7 +6,7 @@ updated: 2026-10-15
 
 # Netmancer
 
-A single-file browser game for CCNA study. Players fix tickets on a simulated network by typing real commands. The whole game is `netmancer.html` (about 640 KB, 3,955 lines) in the repo root.
+A single-file browser game for CCNA study. Three modes share one engine: **Lab & Course** (build a network by hand and follow CCNA lessons; the study build), **Zero to Hero** (career tickets) and **The Academy** (practice tickets). Everything is typed as real commands. The whole game is `netmancer.html` (about 715 KB, 4,342 lines) in the repo root.
 
 **Start here.** These notes exist so a work session can learn the project from a few short pages instead of reading the game file. Read the page you need, then grep the game file by function name.
 
@@ -14,6 +14,7 @@ A single-file browser game for CCNA study. Players fix tickets on a simulated ne
 | --- | --- |
 | [Architecture](Architecture.md) | You need to change the engine, the UI, or how a ticket is built and graded |
 | [Tickets](Tickets.md) | You are adding, fixing or looking up a ticket, template or topology |
+| [Course](Course.md) | You are adding or fixing a course lesson, or need the lab addressing plan |
 | [Decisions](Decisions.md) | You wonder why something is the way it is (naming rule, modes, console look) |
 | [Backlog](Backlog.md) | You are picking the next piece of work |
 | [Workflow](Workflow.md) | You need to test, publish or commit |
@@ -38,3 +39,4 @@ A single-file browser game for CCNA study. Players fix tickets on a simulated ne
 | Runes | Mastery and review date per CCNA objective (shared skill profile) |
 | Night Watch | The daily challenge: one quick fault plus five review cards |
 | Era | A content tier: 1 Fundamentals, 2 Switching, 3 Routing |
+| Lab, lesson | A hand-built network saved in the profile; a course step with goals graded on that network |

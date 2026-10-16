@@ -22,7 +22,7 @@ The built-in browser pane cannot open `file://`, so serve the folder:
 node -e "require('http').createServer((q,r)=>{const p=decodeURIComponent(q.url.split('?')[0]);require('fs').readFile('.'+(p==='/'?'/netmancer.html':p),(e,d)=>{if(e){r.writeHead(404);return r.end()}r.writeHead(200,{'Content-Type':p.endsWith('.html')?'text/html; charset=utf-8':'text/plain','Cache-Control':'no-store'});r.end(d)})}).listen(8765,'127.0.0.1')"
 ```
 
-Then open `http://127.0.0.1:8765/netmancer.html#selftest`. The page runs three suites and prints a report (`#devreport`): engine (`C.selfTest`), workstation (`uiSelfTest`) and game modes (`modeSelfTest`). All three must say PASS. In normal play the same report is under Settings → Diagnostics.
+Then open `http://127.0.0.1:8765/netmancer.html#selftest`. The page runs four suites and prints a report (`#devreport`): engine (`C.selfTest`, which includes the lab API and a replay of every course lesson), workstation (`uiSelfTest`), game modes (`modeSelfTest`) and lab and course (`labSelfTest`). All four must say PASS. In normal play the same report is under Settings → Diagnostics.
 
 Demo hashes for screenshots: `#demo-mail` (desktop, a VPN bad ticket open), `#demo-phone` (same at phone size), `#demo-academy` (an Academy ticket). Dev modes use a throwaway save.
 

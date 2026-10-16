@@ -41,6 +41,22 @@ The Academy has its own plain study theme, independent of the career skin: flat 
 - Font size: Ctrl+= / Ctrl+- / Ctrl+0 or Ctrl+wheel. Touch screens get a small run button and the quick-insert key row; PCs don't.
 - `?` and Tab work on every shell. On the PC shells a `?` right after `/`, `-`, `[` or `:` is literal so `ipconfig /?` still works.
 
+## Lab mode and the course (2026-10-15)
+
+Colby's direction: develop the game first as his own study tool, hands-on simulation with freedom, as close to real gear as the engine allows. The course follows CCNA from the beginning ("how RJ45 works → plug one in") and builds one network as it goes.
+
+| Decision | What |
+| --- | --- |
+| Third mode | **Lab & Course** is the first tile on the title screen. Blank canvas or a clean preset (the three ticket topologies with no fault). Labs are saved in the shared profile; the course has its own lab |
+| Cable model | Links carry a cable type: copper straight-through (default), crossover, console, fiber. Gigabit copper ports auto-MDIX, so straight and crossover both come up. Fiber is refused at plug time until there are SFP ports. Console cables fit only the virtual `con0` (switch, router) and `com1` (PC with an OS) ports, which L1–L3 never see |
+| Console access | *Realistic console access* (Lab tab) requires a console cable from a PC to the device's `con0`, or SSH over the network. **Off by default** (Colby's call); lesson 1.03 teaches the cable either way |
+| Graded by state, plus "you ran it" | Lesson goals use the same state checks as tickets. Lessons about looking (`show mac address-table`, `arp -a`) use the `ran` check over `net.cmdlog`, which exists only on lab nets |
+| Crash-safe goals | A goal on a device that does not exist yet reads "(not ready yet)" rather than throwing |
+| Lesson setup | A lesson's `setup` steps (same format as `solution`) are applied once when it first opens, so ticket faults can be injected into the growing lab (1.15 is T-002's dead DNS) |
+| Plain terms by default | New profiles start plain; an old profile stays plain until the flavour is chosen in Settings. Lab mode always reads plain |
+| Labs not in save codes | Save codes carry course progress but not labs (size). Labs export and import as JSON |
+| Milestone cut | Lab mode + Module 1 (15 lessons). Module 2 is written up in the backlog and the Course tab shows it as "coming" |
+
 ## Repo and notes (2026-10-15)
 
 - Netmancer lives in its own repo at `E:\Projects\Netmancer`, never inside HomeNet Dash.
