@@ -57,6 +57,18 @@ Colby's direction: develop the game first as his own study tool, hands-on simula
 | Labs not in save codes | Save codes carry course progress but not labs (size). Labs export and import as JSON |
 | Milestone cut | Lab mode + Module 1 (15 lessons). Module 2 is written up in the backlog and the Course tab shows it as "coming" |
 
+## Command drill (2026-10-17)
+
+Colby asked for a way to practise CLI commands like flash cards. Choices made with him: it lives in Lab & Course as a Commands tab; a card is answered by typing in the real console on a scratch device, not in a text box; the first deck covers Module 1 only and grows with the course.
+
+| Decision | What |
+| --- | --- |
+| Scratch network per card | Every card loads a fresh network (SW1, R1 with DHCP, PC1 on DHCP, PC2 static, SRV1 as DNS) so config cards cannot wreck the lab and each card starts from a known state. The lab record is saved before the swap and never written while the drill is on |
+| Graded by what you typed and what it did | A card passes when a typed line matches one of its accept patterns (IOS abbreviations allowed: `sh int status` counts) and, for config cards, the device state check passes. First try = Good, detours = Hard, Reveal = Again |
+| No `?` or Tab during a card | Help would answer the card. Reveal answer is the way out; it shows the answer and a note and schedules the card back in ten minutes |
+| Same spaced repetition as review cards | `C.srs` records per card in the profile; due cards come first. Each answer also feeds the card's objectives' runes with the card weight, so the drill shows in the skill profile but never grants career XP |
+| Deck proven by the self-test | `testCmdDrill` answers every card with its reference answer and fails the build if an answer errors, does not match its own patterns, or leaves the state check false |
+
 ## Repo and notes (2026-10-15)
 
 - Netmancer lives in its own repo at `E:\Projects\Netmancer`, never inside HomeNet Dash.

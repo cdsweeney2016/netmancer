@@ -12,6 +12,12 @@ Pick from the top. Each item says what it touches so a session can scope it with
 
 Fifteen lessons, listed in [Course](Course.md). They need no engine work until 2.14 and 2.15 (`kind:'stub'` until then). Order: VLANs → access ports → router-on-a-stick → trunk to SW2 → allowed list and native VLAN → CDP → voice VLAN → management SVI → SSH → console line, banner, encryption → EtherChannel → PortFast and BPDU guard → port security → Rapid PVST+ (stub) → wireless (stub). Touches content (`course.lessons`), maybe a `port_vlan`/`voice_vlan`/`native` check or two in `CHECKS`.
 
+## Command drill follow-ups
+
+- [ ] **Module 2 cards** as the lessons land: VLANs, trunks, EtherChannel, port security, SSH, CDP. Append to `cmdDrill.cards`; the deck test proves each answer.
+- [ ] **Reverse cards.** Show a command or a slice of its output and ask what it does or what is wrong (multiple choice). Needs a small question bank per card.
+- [ ] **Due cards on the title tile and in Night Watch.** The Lab tile could show "n commands due"; Night Watch could add two command cards to its five review cards.
+
 ## Lab mode follow-ups
 
 - [ ] **Collapsible side panel on phones.** The lesson panel sits above the map and terminal, so a phone scrolls a long way to reach the console. A collapse toggle on the panel, or a tab that swaps panel/map/terminal.
@@ -53,3 +59,4 @@ Colby's fidelity priorities: spanning tree, ACLs and NAT, services (DHCP relay, 
 - [x] Windows Terminal-style console (2026-10-06)
 - [x] Own repo + docs vault (2026-10-15)
 - [x] Lab mode + CCNA course Module 1 (15 lessons), plain terms by default (2026-10-15)
+- [x] Command drill: 46 Module 1 cards answered in the real console, spaced repetition, Commands tab (2026-10-17)

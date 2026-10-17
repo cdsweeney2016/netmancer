@@ -45,11 +45,12 @@ Style blocks: base styles, the three career skins (`#skins`: arcane, torch, towe
 | Runes | `runeScore({pass, pen, late})` `runeUpdate` `runeState` (new / fresh / fading) `runeApply` `weakWeights`. Config in `RUNE` |
 | Picker | `ticketPool(content)` = quests ∪ expanded watch templates ∪ bad tickets. `pickTicket(content, {seed, objectives, weights, tierRange, eras, kinds, exclude})` is deterministic per seed |
 | Triage | `triage(content, q, act, ctx)`: grades ask / user / team / merge / fix on bad tickets. Constants in `TRI` |
-| Self-test | `testQuest` `testBad` `testTriageData` `testDrills` `testSrs` `testModes` `testLab` `testCourse` (replays every non-stub lesson in order: setup → must fail → solution → must pass → survives serialize/load) → `selfTest(content)` |
+| Command drill | `cmdMatch(pattern, line)`: pattern tokens separated by spaces, `abc[def]` = abc plus any prefix of def (IOS abbreviation), `*` any one token, `{re}` a raw regex token; whole line, case-insensitive. `CMD_START` maps a card's `start` to the lines that put the shell in that mode. Exported as `cmdMatch` and `cmdStart` |
+| Self-test | `testQuest` `testBad` `testTriageData` `testDrills` `testSrs` `testModes` `testLab` `testCourse` `testCmdDrill` (builds the scratch net, answers every card, checks the answer against its own patterns and its state check) (replays every non-stub lesson in order: setup → must fail → solution → must pass → survives serialize/load) → `selfTest(content)` |
 
 ## NetmancerContent
 
-Exported as one object: `topologies` (ground, closet, tower), `quests`, `watch`, `badTickets`, `triage` (asks, guides, teams), `questCards`, `drillCards`, `objectives`, `domainWeight`, `schools`, `ranks`, `eras`, `tiers`, `glossary`, `spellbook`, `cliCases`, `os` (wiki, runbooks, welcome), `artifacts`, `course` (modules and lessons; see [Course](Course.md)). See [Tickets](Tickets.md) for the ticket schema and catalogue.
+Exported as one object: `topologies` (ground, closet, tower), `quests`, `watch`, `badTickets`, `triage` (asks, guides, teams), `questCards`, `drillCards`, `objectives`, `domainWeight`, `schools`, `ranks`, `eras`, `tiers`, `glossary`, `spellbook`, `cliCases`, `os` (wiki, runbooks, welcome), `artifacts`, `course` (modules and lessons; see [Course](Course.md)), `cmdDrill` (`base` steps for the scratch network and the command `cards`; see [Course](Course.md)). See [Tickets](Tickets.md) for the ticket schema and catalogue.
 
 ## NetmancerOS
 
@@ -66,7 +67,8 @@ Exported as one object: `topologies` (ground, closet, tower), `quests`, `watch`,
 | Window manager | `openApp` `focusWin` `closeWin` `tileWin` `mountWin`; `WM.mode` is desktop or mobile |
 | Apps | `TermApp` `MailApp` `FilesApp` `NotesApp` `MapApp` `BrowserApp` (wiki + training portal via `trainMount`) `SkillsApp` `SettingsApp` |
 | Shell | `boot` → `titleScreen` → `setup` / `loginNow` → `session`; `toTitle` `signOut` `restart` |
-| Tests | `uiSelfTest` (workstation) `modeSelfTest` (saves, modes, fading rule) `labSelfTest` (editor, console gate, save, import, lessons, leave) `fullTestReport` |
+| Command drill | Lab mode's Commands tab. `CMD` holds the session (queue, current card, attempts, result). `labSetTab` → `labDrillOn`/`labDrillOff` swap `cmdNet()` (a fresh scratch network from `cmdDrill.base`) into the global `net` with `LAB.drill` true, so `saveNow` never writes it into the lab record; leaving the tab, the lab, the picker or resetting the course calls `labDrillOff`. `cmdStartSession(kind)` (due, new, ten, all) → `cmdNext` → `cmdStart` (fresh net, connect the card's device, run `C.cmdStart[start]` and `pre`, mark `cmdlog`) → `cmdAfterCmd` on every command (typed lines since the mark against `accept`, plus the optional `check` through `C.grade`) → `cmdGrade` (SRS record in `S.cmd.cards`, runes via `cardW`, Grimoire on a reveal). `TermApp` takes `opts.noHelp` to refuse `?` and Tab while a card is live. Panels: `cmdPanel` (deck overview per device), `cmdCardView`, `cmdSummary` |
+| Tests | `uiSelfTest` (workstation) `modeSelfTest` (saves, modes, fading rule) `labSelfTest` (editor, console gate, save, import, lessons, command drill, leave) `fullTestReport` |
 | Dev modes | URL hash `#selftest` `#demo-mail` `#demo-phone` `#demo-academy` `#demo-lab` set `DEV` and use a throwaway save |
 
 ## How a ticket runs
@@ -79,6 +81,7 @@ Exported as one object: `topologies` (ground, closet, tower), `quests`, `watch`,
 ## Saves
 
 - `localStorage` keys: `netmancer.profile.v1` (shared: cards, drill, grim, plain, font, theme, runes, academy, labs, course, labCfg, ui), `netmancer.career.<n>.v2` (xp, rep, done, active, watch, os, rank…), `netmancer.careers` (slot index). Dev modes prefix them with `netmancer.dev.<mode>.`.
+- Command cards: `S.cmd = {cards: {cardId: srs record}}` (profile key `cmd`, in save codes).
 - Labs: `S.labs[id] = {id, name, net (serialized), created, updated, preset, course}`; `S.course = {labId, current, done, setupDone, hints}`; `S.labCfg = {realConsole, last}`. `saveNow` writes the open lab's net into its record before splitting. Save codes carry `course`, `labCfg` and `ui` but not `labs` (size); labs travel as exported JSON.
 - Plain terms: `fresh().plain` is `true`; `mergeSave` forces `plain=true` until the player picks a flavour in Settings (`S.ui.plainChosen`). `plainOn()` is true in every non-career mode.
 - A pre-2b `netmancer.save.v1` is migrated into slot 1 on first load and kept as a backup.
