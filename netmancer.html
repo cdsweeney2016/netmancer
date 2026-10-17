@@ -709,7 +709,7 @@ html[data-theme=classic] .mstat{color:#2a2236;text-shadow:none}
 .lab-tabs button{min-height:44px;padding:6px 12px;border-radius:8px;border:1px solid transparent;background:transparent;color:var(--chromefg);cursor:pointer;font:inherit;opacity:.85}
 .lab-tabs button.on{border-color:var(--chromeline);background:rgba(255,255,255,.1);opacity:1;font-weight:600}
 .lab-main{flex:1;min-height:0;min-width:0;display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);grid-template-rows:minmax(0,1fr) minmax(220px,40%);gap:10px;padding:10px;box-sizing:border-box}
-.lab-main.pick{display:block;overflow:auto}
+.lab-main.pick{display:block;overflow:auto} .lab-main.drill .lab-map{display:none} .lab-main.drill .lab-term{grid-row:1/3}
 .lab-side{grid-row:1/3;min-height:0;min-width:0;overflow:auto} .lab-side .card{margin-bottom:10px}
 .lab-map{min-height:0;min-width:0;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
 .lab-mapbar{display:flex;flex-direction:column;gap:4px;padding:4px 8px 6px;border-bottom:1px solid var(--line);background:var(--qbg)} .lab-mapbar .row{gap:4px;align-items:center;flex-wrap:wrap}
@@ -733,7 +733,7 @@ svg.topo.edit .node.sel rect,svg.topo.edit .node.sel circle,svg.topo.edit .node.
 svg.topo.edit .node.pend rect,svg.topo.edit .node.pend circle{stroke:#9a7ee0;stroke-width:3;stroke-dasharray:4 3}
 svg.topo.edit .lk.sel{stroke-width:7;opacity:.85}
 .ctx{max-height:70vh;overflow:auto}
-@media (max-width:759px){ .lab-main{display:flex;flex-direction:column;overflow:auto} .lab-main.pick{display:block} .lab-side{overflow:visible;flex:0 0 auto} .lab-map{height:46vh;flex:0 0 auto} .lab-term{height:60vh;flex:0 0 auto} .lab-tabs{margin-left:0;width:100%} .lab-tabs button{flex:1} .lab-top{padding:6px 10px}
+@media (max-width:759px){ .lab-main{display:flex;flex-direction:column;overflow:auto} .lab-main.drill .lab-term{height:70vh} .lab-main.pick{display:block} .lab-side{overflow:visible;flex:0 0 auto} .lab-map{height:46vh;flex:0 0 auto} .lab-term{height:60vh;flex:0 0 auto} .lab-tabs{margin-left:0;width:100%} .lab-tabs button{flex:1} .lab-top{padding:6px 10px}
  .labroot .tv-bar{flex-wrap:nowrap} .labroot .tv-bar .tdev{min-width:0} .labroot .tv-bar .tbtn,.labroot .tv-quick button,.labroot .tv-in .tbtn{min-height:44px} .labroot .tv-in input{font-size:16px} }
 /* rune chips: mastery per exam objective */
 .rchips{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin:6px 0}
@@ -3496,7 +3496,7 @@ function labGoalsText(){ var L=curLesson(); if(!L) return 'No lesson is open. Go
 function labCheck(){ var L=curLesson(); if(!L) return null; var g=labGradeNow(); if(g&&g.pass){ if(!S.course.done[L.id]) S.course.done[L.id]={at:Date.now()}; toast({title:'Lesson complete: '+L.title,body:'The next lesson is ready.',icon:'check',ms:3600}); } else toast({title:'Not yet',body:(g?g.results.filter(function(r){return !r.ok;}).length:0)+' goal(s) still open. See the list.',icon:'map',ms:3600}); save(); labRender(); return g; }
 /* rendering */
 function labRender(){ if(phase!=='lab'||!root) return; var host=$('.lab',root); if(!host){ root.innerHTML='<div class="lab">'+labTop()+'<div class="lab-main"></div><div id="toasts" aria-live="polite"></div></div>'; host=$('.lab',root); host.addEventListener('click',labClick); host.addEventListener('keydown',labKeys); host.addEventListener('change',labChange); } else $('.lab-top',host).outerHTML=labTop();
-  var main=$('.lab-main',host); if(LAB.view==='pick'||!net){ main.className='lab-main pick'; LAB.key=null; labMapEl=null; labTerm=null; return labPick(main); } main.className='lab-main'; labMain(main); }
+  var main=$('.lab-main',host); if(LAB.view==='pick'||!net){ main.className='lab-main pick'; LAB.key=null; labMapEl=null; labTerm=null; return labPick(main); } main.className='lab-main'+(LAB.tab==='cmd'?' drill':''); labMain(main); }
 function labTop(){ var rec=LAB.labId&&S.labs[LAB.labId], done=Object.keys(S.course.done).length, tot=lessonList().filter(function(l){ return l.kind!=='stub'; }).length, open=LAB.view==='lab'&&!!net;
   return '<div class="lab-top"><button type="button" class="btn ghost" data-l="leave">'+svg('back')+(acFrom==='career'?'Back to career':'Title screen')+'</button><b class="lab-title">'+(rec&&open?esc(rec.name):'Lab')+' <small>'+(rec&&open&&rec.course?'course lab':'study mode')+'</small></b>'+(open?'<span class="tag v">'+done+' / '+tot+' lessons</span>':'')+'<nav class="lab-tabs" aria-label="Lab">'+(open?[['lesson','Lesson'],['course','Course'],['lab','Lab'],['cmd','Commands']].map(function(t){ return '<button type="button" data-l="tab:'+t[0]+'" class="'+(LAB.tab===t[0]?'on':'')+'">'+t[1]+'</button>'; }).join(''):'')+'<button type="button" data-l="pick"'+(LAB.view==='pick'?' class="on"':'')+'>Labs</button></nav></div>'; }
 function labPick(main){ var labs=Object.keys(S.labs).map(function(k){ return S.labs[k]; }).sort(function(a,b){ return (b.updated||0)-(a.updated||0); }), tot=lessonList().filter(function(l){ return l.kind!=='stub'; }).length, hasCourse=!!(S.course.labId&&S.labs[S.course.labId]);
