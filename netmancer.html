@@ -3680,7 +3680,7 @@ function labSelfTest(){ var R=[], ok=function(c,l){ R.push({ok:!!c,label:l}); };
     S.cmd={cards:{}}; cmdStartSession('all'); var c1=CMD.cur; ok(CMD.on&&!!c1&&labTerm.inst.dev()===c1.dev&&/Card 1 of/.test($('.lab-side',root).textContent),'a session opens the first card on its device');
     String(c1.answer).split('\n').forEach(function(l){ labTerm.inst.run(l); }); ok(!!CMD.result&&CMD.result.g>=1&&!!S.cmd.cards[c1.id]&&S.cmd.cards[c1.id].seen===1&&/Correct/.test($('.lab-side',root).textContent),'typing the answer in the console grades the card and schedules it');
     $('.lab-side [data-l="cmd:next"]',root).click(); var c2=CMD.cur; ok(c2&&c2!==c1&&!CMD.result,'Next opens the next card');
-    labTerm.inst.run('reveal'); ok(!!CMD.result&&CMD.result.g===0&&!!S.cmd.cards[c2.id]&&S.cmd.cards[c2.id].lapses===1&&$('.lab-side .cmd-res pre',root).textContent===c2.answer&&/Answer: /.test(labTerm.inst.text()),'typing reveal grades the card Again and prints the answer');
+    labTerm.inst.run('reveal'); ok(!!CMD.result&&CMD.result.g===0&&!!S.cmd.cards[c2.id]&&S.cmd.cards[c2.id].lapses===1&&$('.lab-side .cmd-res pre',root).textContent===c2.answer&&/Answer, from /.test(labTerm.inst.text()),'typing reveal grades the card Again and prints the answer');
     labTerm.inst.run(''); ok(!!CMD.cur&&CMD.cur!==c2&&!CMD.result&&/Card 3 of/.test(labTerm.inst.text()),'Enter after a reveal moves to the next card');
     labTerm.inst.run('skip'); ok(!!CMD.cur&&/Card 4 of/.test(labTerm.inst.text()),'typing skip moves on without grading');
     labSetTab('lesson'); ok(!LAB.drill&&!CMD.on&&Object.keys(net.devices).length===before,'leaving the tab restores the lab network');
