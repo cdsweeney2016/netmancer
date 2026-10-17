@@ -6,7 +6,7 @@ updated: 2026-10-15
 
 # Netmancer
 
-A single-file browser game for CCNA study. Three modes share one engine: **Lab & Course** (build a network by hand and follow CCNA lessons; the study build), **Zero to Hero** (career tickets) and **The Academy** (practice tickets). Everything is typed as real commands. The whole game is `netmancer.html` (about 715 KB, 4,342 lines) in the repo root.
+A single-file browser game for CCNA study. Three modes share one engine: **Lab & Course** (build a network by hand and follow CCNA lessons; the study build), **Zero to Hero** (career tickets) and **The Academy** (practice tickets). Everything is typed as real commands. The whole game is `netmancer.html` (about 750 KB, 4,400 lines) in the repo root.
 
 **Start here.** These notes exist so a work session can learn the project from a few short pages instead of reading the game file. Read the page you need, then grep the game file by function name.
 

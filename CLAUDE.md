@@ -1,6 +1,6 @@
 # Netmancer
 
-A single-file browser game for CCNA study: `netmancer.html` (about 640 KB, 3,955 lines).
+A single-file browser game for CCNA study: `netmancer.html` (about 750 KB, ~4,400 lines).
 
 ## Read the notes, not the file
 
@@ -19,5 +19,5 @@ Do not read `netmancer.html` end to end. Grep it by function name and read only 
 
 - Every command, keyword and output format is real; only brands are fictional (Arcanet/RuneOS, Casement, Oakhollow, Wardgate). Never add a real vendor name to the game world.
 - Keep the engine (`NetmancerCore`), content (`NetmancerContent`) and UI (`NetmancerOS`) separate. ES5 style, no build step, no template literals.
-- Every change: syntax-check the script blocks, run `#selftest` (three suites must PASS), then update the vault page it affects and add a line to `docs/Sessions/<date>.md`.
+- Every change: syntax-check the script blocks, run `#selftest` (four suites must PASS), then update the vault page it affects and add a line to `docs/Sessions/<date>.md`.
 - Commit here, in this repo, never in another project's checkout.
