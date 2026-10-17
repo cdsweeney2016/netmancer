@@ -37,7 +37,6 @@ Fifteen lessons, listed in [Course](Course.md). They need no engine work until 2
 - [ ] **Trial of the Conclave.** The timed mock exam: questions sampled by blueprint weight (`domainWeight`), multiple choice plus short lab tickets from the picker, flavour-free, with a readiness view from the runes. New Academy view; needs a question bank in the content pack.
 - [ ] **"Story off" career option.** Placeholder until there is a story to switch off.
 - [ ] **Bad tickets in the Academy.** They need Mail's triage panels, which the Academy doesn't have. Either a Triage drill view or leave them Career-only.
-- [ ] **Push the repo to a remote** (Gitea or GitHub).
 
 ## Large: engine gaps, grouped by the course module waiting on them
 

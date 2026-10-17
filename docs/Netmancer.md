@@ -23,8 +23,9 @@ A single-file browser game for CCNA study. Three modes share one engine: **Lab &
 ## Links
 
 - Design doc (Claude Doc, the long version): https://claude.ai/code/artifact/2936cf04-c15c-4a4e-a0d8-9dca49045f26
-- Playable copy: https://claude.ai/artifact/WGEWFFJycGFEWpFZ8CEwDK
-- Repo: `E:\Projects\Netmancer` (git, branch `main`, no remote yet)
+- Play (public, updates on every push to `main`): https://cdsweeney2016.github.io/netmancer/
+- Playable copy on claude.ai (private): https://claude.ai/artifact/WGEWFFJycGFEWpFZ8CEwDK
+- Repo: `E:\Projects\Netmancer`, remote https://github.com/cdsweeney2016/netmancer (branch `main`, GitHub Pages from the branch root)
 
 ## Vocabulary
 

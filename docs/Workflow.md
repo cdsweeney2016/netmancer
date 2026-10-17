@@ -35,3 +35,7 @@ The playable copy at https://claude.ai/artifact/WGEWFFJycGFEWpFZ8CEwDK is the sa
 ## Commit
 
 Commit in `E:\Projects\Netmancer` only. After a change: update the relevant page here, add a line to the [Backlog](Backlog.md) *Done* list if it closes an item, and add a [session note](Sessions/).
+
+## Publish to the web
+
+The repo's `main` branch is served by GitHub Pages at https://cdsweeney2016.github.io/netmancer/ (`index.html` opens `netmancer.html`). Pushing to `main` publishes; the build takes a minute or two. Testers' saves live in their own browsers. The claude.ai artifact is a separate, private copy republished by hand.
