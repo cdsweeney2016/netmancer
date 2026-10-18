@@ -37,6 +37,7 @@ The Academy has its own plain study theme, independent of the career skin: flat 
 ## Console (2026-10-06)
 
 - Styled after Windows Terminal running PowerShell, in the game's colours: a tab strip (device tab, `+`, `˅` device menu), the prompt and input inline on the last line, no toolbar buttons.
+- Colours and type (2026-10-17, Colby's Tabby theme): one palette in every mode and skin, dark violet-grey background `#1e1c2c`, lavender text, the echoed command word in blue and its arguments in orange (as Clink paints them), semibold Cascadia Code / JetBrains Mono / Consolas, the prompt and input inline with no box. Variables live on `.tv` (`--tbg --tfg --tp --tcmd --targ --tok --terr --tfont`).
 - No *Save config* button. On a switch or router you save with `write memory` or `copy running-config startup-config`, as on real gear. *Check the fix* survives only in the right-click menu.
 - Font size: Ctrl+= / Ctrl+- / Ctrl+0 or Ctrl+wheel. Touch screens get a small run button and the quick-insert key row; PCs don't.
 - `?` and Tab work on every shell. On the PC shells a `?` right after `/`, `-`, `[` or `:` is literal so `ipconfig /?` still works.

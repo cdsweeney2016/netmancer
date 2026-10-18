@@ -685,6 +685,12 @@ html[data-theme=classic] .mstat{color:#2a2236;text-shadow:none}
 .tv .tv-out{padding:10px 12px 16px;font:var(--tfs)/1.3 var(--tfont);white-space:normal}
 .tv .tv-log{white-space:pre;font:inherit}
 .tv .tv-log .blk{white-space:pre-wrap;font:inherit;color:var(--tmut);border:0;border-radius:0;background:none;padding:0;margin:0 0 .35em}
+/* console palette and type: modelled on Colby's Tabby theme, the same in every mode and skin */
+.tv{--tbg:#1e1c2c;--tfg:#c9c3ee;--tp:#d6d0f5;--tmut:#8d87b3;--tline:#2f2c42;--tchrome:#1e1c2c;--tchrome2:#17161f;--tbtn:#272538;--tkey:#2c2a3f;--cmdbg:#1e1c2c;--tblk:#24223a;--tcmd:#3f9dff;--targ:#f5a742;--tok:#8fe0a8;--terr:#ff8a7a;--tfont:"Cascadia Code","Cascadia Mono","JetBrains Mono","Fira Code",Consolas,ui-monospace,SFMono-Regular,Menlo,monospace}
+.tv .tv-out,.tv .tv-log{font-weight:600} .tv .tv-log .p{color:var(--tp)} .tv .tv-log .cw{color:var(--tcmd)} .tv .tv-log .ca{color:var(--targ)}
+.tv .tv-in{background:var(--tbg);padding:0 12px 10px;gap:0} .tv .tv-prompt{font:var(--tfs)/1.3 var(--tfont);font-weight:600;color:var(--tp)} .tv .tv-in input{font:var(--tfs)/1.3 var(--tfont);font-weight:600;color:var(--tcmd);background:transparent;border:0;border-radius:0;padding:4px 0 4px 2px;min-height:0;caret-color:var(--tfg)} .tv .tv-in input:focus{border:0;box-shadow:none}
+.tv .tv-tabs{background:var(--tchrome2)} .tv .tv-tab{background:var(--tbg);color:var(--tfg);font-weight:600;box-shadow:inset 0 2px 0 var(--tcmd)} .tv .tv-tab>svg,.tv .tv-tb{color:var(--tmut)} .tv .tv-x:hover,.tv .tv-tb:hover{background:rgba(255,255,255,.08);color:var(--tfg)}
+.tv .tv-quick{background:var(--tchrome2)} .tv .tbtn{background:var(--tbtn)}
 .tv .tv-log .blk b{color:var(--tfg)}
 .tv .tv-log .blk[data-key=ok]{color:var(--tok)}
 .tv .tv-log a{color:var(--tp);text-decoration:underline;cursor:pointer}
@@ -3891,7 +3897,7 @@ function TermApp(w,opts){ var b=w.body; b.classList.add('tv'); var inShell=!!wmF
   function trimOut(){ while(log.childNodes.length>1600) log.removeChild(log.firstChild); }
   function print(text){ var frag=document.createDocumentFragment(), buf=[]; var flush=function(){ if(buf.length){ frag.appendChild(document.createTextNode(buf.join('\n')+'\n')); buf=[]; } };
     String(text).split('\n').forEach(function(l){ var c=tcls(l); if(!c){ buf.push(l); return; } flush(); var s=el('span',c); s.textContent=l+'\n'; frag.appendChild(s); }); flush(); log.appendChild(frag); trimOut(); scroll(); }
-  function echo(p,line){ var s=el('span','p'); s.textContent=p; log.appendChild(s); log.appendChild(document.createTextNode(line+'\n')); scroll(); }
+  function echo(p,line){ var s=el('span','p'); s.textContent=p; log.appendChild(s); var m=String(line).match(/^(\s*\S+)([\s\S]*)$/); if(m){ var w=el('span','cw'); w.textContent=m[1]; log.appendChild(w); if(m[2]){ var a=el('span','ca'); a.textContent=m[2]; log.appendChild(a); } } log.appendChild(document.createTextNode('\n')); scroll(); }
   function block(html,key){ var last=log.lastElementChild; if(key&&last&&last.getAttribute('data-key')===key) return last; var d=el('div','blk',html); if(key) d.setAttribute('data-key',key); log.appendChild(d); scroll(); return d; }
   function clearScreen(){ log.innerHTML=''; }
   function title(){ var d=devId&&net&&net.devices[devId]; setTitle(w,(plainOn()?'Terminal':'Console')+(d?' — '+d.hostname+(d.type==='host'?' (remote shell)':' (console)'):'')); }
