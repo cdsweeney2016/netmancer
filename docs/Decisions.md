@@ -102,6 +102,10 @@ The console log wraps long lines (`pre-wrap`, `overflow-wrap: anywhere`) instead
 
 Packet Tracer layout: a palette column of icon tiles (Network, End devices, Cables) beside the canvas, tools in a slim row above it. Colby found the earlier tab-and-row bar fiddly. Port labels are placed outside the node shape, drawn on top with a halo, so they never hide under a node or under each other.
 
+## Lab goals explain themselves (2026-10-17)
+
+A failing reach goal in a lesson says why ("PC1 reaches PC3 — PC1 has no default gateway"). The engine already computed the reason; hiding it only cost study time. Career and Academy tickets do not show it: there the diagnosis is the exercise.
+
 ## Repo and notes (2026-10-15)
 
 - Netmancer lives in its own repo at `E:\Projects\Netmancer`, never inside HomeNet Dash.
