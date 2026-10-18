@@ -12,6 +12,11 @@ Pick from the top. Each item says what it touches so a session can scope it with
 
 Fifteen lessons, listed in [Course](Course.md). They need no engine work until 2.14 and 2.15 (`kind:'stub'` until then). Order: VLANs → access ports → router-on-a-stick → trunk to SW2 → allowed list and native VLAN → CDP → voice VLAN → management SVI → SSH → console line, banner, encryption → EtherChannel → PortFast and BPDU guard → port security → Rapid PVST+ (stub) → wireless (stub). Touches content (`course.lessons`), maybe a `port_vlan`/`voice_vlan`/`native` check or two in `CHECKS`.
 
+## Academy guide follow-ups
+
+- [ ] **Hand-written walkthroughs for Era 2 and 3 tickets** (17 tickets). Same schema as `content.guides`; `testGuides` proves each one. Until then they use the automatic guide.
+- [ ] **Guide for bad tickets** (triage): facts that show it is a user-error or duplicate ticket, then the triage action.
+
 ## Command drill follow-ups
 
 - [ ] **Badges and recommendation for Module 2** when its cards land (`dev:` badges per device cover it; add a `module` badge).

@@ -121,3 +121,15 @@ Ranks: Apprentice (Helpdesk Tech I) → Acolyte (500 fund XP + T-003) → Adept 
 2. Give it at least one `wrong` case; the self-test proves wrong fixes fail.
 3. Add a `questCards` entry (two cards) and an `artifacts` entry.
 4. Run `#selftest`: it builds the ticket, checks it fails before the fix, passes after `solution` and each `alt`, fails each `wrong`, and survives a save/load round trip.
+
+## Guided walkthroughs
+
+Academy tickets with a hand-written guide (`content.guides`, schema: `facts[{q, why}]`, `steps[{dev, cmd, show, look, why} | {dev, lines, check, why}]`, `done`). Every other ticket gets an automatic guide from its hints and solution.
+
+| Ticket | Facts | Steps |
+| --- | --- | --- |
+| T-001 New laptop, no internet | 3 | 5 |
+| T-002 Websites dead, chat app works | 4 | 4 |
+| T-003 New PC reaches the printer but not the internet | 4 | 4 |
+| T-006 Slow network at one desk | 4 | 4 |
+| T-007 Printer works on and off | 5 | 6 |

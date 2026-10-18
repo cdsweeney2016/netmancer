@@ -84,6 +84,21 @@ Colby wanted the Commands tab more compelling and informative. His choices: mast
 | No streak | By Colby's choice: the 14-day bars show activity, nothing nags |
 | Why it works | Each card carries a `why`: the mechanism in TCP/IP terms and a few other situations the command answers. Printed after a correct answer (the drill waits a little longer before the next card) and after a reveal |
 
+## Academy guide (2026-10-17)
+
+Colby: the Academy should guide you to the answer and make you type the commands, but give you the command: point out the important details in the request, explain briefly why they matter, then walk through to resolution. Choices: Era 1 tickets hand-written first (the rest built from their hints and solution), a *Guide me* toggle per ticket (off by default, remembered in the profile), one step at a time.
+
+| Decision | What |
+| --- | --- |
+| Facts first | The guide quotes the request (marked in the symptom and brief with a number) and says why each detail matters, before any command |
+| One step at a time | Each step names the device, the command to type, what to read in the output and why. The next step appears when a typed line on that device matches (show steps) or the device state proves it (fix steps). Skip exists; read steps have Done |
+| Costs the same as the full-commands hint | Turning the guide on reveals hint 4, so a guided ticket earns half mastery, like one solved with the exact commands shown |
+| Hand-written where it matters | `content.guides` for T-001, T-002, T-003, T-006, T-007; the engine self-test replays each guide and fails the build if it does not solve its ticket. Other tickets get an automatic guide until written |
+
+## Console wrapping (2026-10-17)
+
+The console log wraps long lines (`pre-wrap`, `overflow-wrap: anywhere`) instead of scrolling sideways, so a narrower window keeps everything readable. Tables lose their alignment when they wrap, which is what a real terminal does too.
+
 ## Repo and notes (2026-10-15)
 
 - Netmancer lives in its own repo at `E:\Projects\Netmancer`, never inside HomeNet Dash.
