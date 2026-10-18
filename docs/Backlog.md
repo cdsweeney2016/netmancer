@@ -14,6 +14,7 @@ Fifteen lessons, listed in [Course](Course.md). They need no engine work until 2
 
 ## Command drill follow-ups
 
+- [ ] **Badges and recommendation for Module 2** when its cards land (`dev:` badges per device cover it; add a `module` badge).
 - [ ] **Module 2 cards** as the lessons land: VLANs, trunks, EtherChannel, port security, SSH, CDP. Append to `cmdDrill.cards`; the deck test proves each answer.
 - [ ] **Reverse cards.** Show a command or a slice of its output and ask what it does or what is wrong (multiple choice). Needs a small question bank per card.
 - [ ] **Due cards on the title tile and in Night Watch.** The Lab tile could show "n commands due"; Night Watch could add two command cards to its five review cards.
@@ -59,3 +60,4 @@ Colby's fidelity priorities: spanning tree, ACLs and NAT, services (DHCP relay, 
 - [x] Own repo + docs vault (2026-10-15)
 - [x] Lab mode + CCNA course Module 1 (15 lessons), plain terms by default (2026-10-15)
 - [x] Command drill: 46 Module 1 cards answered in the real console, spaced repetition, Commands tab (2026-10-17)
+- [x] Drill statistics: mastery tiers, weak spots, Start here recommendation, 14 badges, session summaries (2026-10-17)

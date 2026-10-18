@@ -71,6 +71,19 @@ Colby asked for a way to practise CLI commands like flash cards. Choices made wi
 | Same spaced repetition as review cards | `C.srs` records per card in the profile; due cards come first. Each answer also feeds the card's objectives' runes with the card weight, so the drill shows in the skill profile but never grants career XP |
 | Deck proven by the self-test | `testCmdDrill` answers every card with its reference answer and fails the build if an answer errors, does not match its own patterns, or leaves the state check false |
 
+## Drill statistics and badges (2026-10-17)
+
+Colby wanted the Commands tab more compelling and informative. His choices: mastery tiers and badges only (no points, nothing touches career XP), no daily streak (statistics only), speed tracked quietly for a fluency tier, all inside the Commands tab.
+
+| Decision | What |
+| --- | --- |
+| Four tiers per card | new → learning → known (two SRS reps and two first-try answers in a row) → fluent (the last three first-try answers each under 6 s per answer line). A reveal drops the card to learning. No visible timer |
+| Start here | One recommendation with its reason, in this order: a refresher after 7+ days away (trouble + due + known cards), due cards, the weakest objective (trouble score ≥ 1.5: reveals ×2 + retries, per card), new cards, a mixed ten |
+| Weak spots | Per objective and per device: accuracy, reveals, retries, a trouble score; trouble cards (any reveal, or under 60 % right) get their own one-card sessions |
+| Badges | Fourteen, plain names (First blood, Clean sweep, Ten in a row, Fast hands, Switch/Router/Desktop/Server hand, Module 1 known/fluent, Hundred club, Comeback, Scholar, Explorer). Tests in core, names in content, earned once, toast + a terminal line |
+| No streak | By Colby's choice: the 14-day bars show activity, nothing nags |
+| Why it works | Each card carries a `why`: the mechanism in TCP/IP terms and a few other situations the command answers. Printed after a correct answer (the drill waits a little longer before the next card) and after a reveal |
+
 ## Repo and notes (2026-10-15)
 
 - Netmancer lives in its own repo at `E:\Projects\Netmancer`, never inside HomeNet Dash.

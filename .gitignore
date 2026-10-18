@@ -5,3 +5,4 @@
 
 # local patch scripts and full-file backups from work sessions
 .bak/
+/.obsidian/

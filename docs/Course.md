@@ -132,3 +132,24 @@ Card schema: `{id, obj[], dev, start, pre?[], where?, task, accept[], answer, no
 | c44 | SRV1 | 1.5 | List the listening TCP and UDP sockets with the program behind each. | `ss -tulpn` |
 | c45 | SRV1 | 1.10 | Show the server's interfaces and addresses. | `ip address show` |
 | c46 | SRV1 | 4.3 | Query the DNS server 192.168.10.5 for srv1.lab.local. | `dig @192.168.10.5 srv1.lab.local` |
+
+## Badges
+
+Earned once in the command drill; tests live in `DRILL_BADGES` (core), names here are from `cmdDrill.badges`.
+
+| Id | Name | How |
+| --- | --- | --- |
+| first | First blood | Your first correct answer. |
+| clean | Clean sweep | A session of eight or more with every card right first time. |
+| run10 | Ten in a row | Ten first-try answers in a row. |
+| fluent5 | Fast hands | Five cards fluent: three first-try answers each, all quick. |
+| dev:SW1 | Switch hand | Every switch card known. |
+| dev:R1 | Router hand | Every router card known. |
+| dev:PC | Desktop support | Every PC card known. |
+| dev:SRV1 | Server room | Every server card known. |
+| deck | Module 1 known | Every card in the deck known. |
+| deckfluent | Module 1 fluent | Every card in the deck fluent. |
+| hundred | Hundred club | One hundred correct answers. |
+| comeback | Comeback | A session after a week or more away. |
+| scholar | Scholar | Five times: revealed a card, then got it first time on its next showing. |
+| explorer | Explorer | Used ? or Tab twenty-five times during cards. |
