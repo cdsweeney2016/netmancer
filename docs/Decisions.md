@@ -98,6 +98,10 @@ Colby: the Academy should guide you to the answer and make you type the commands
 
 The console log wraps long lines (`pre-wrap`, `overflow-wrap: anywhere`) instead of scrolling sideways, so a narrower window keeps everything readable. Tables lose their alignment when they wrap, which is what a real terminal does too.
 
+## Lab palette (2026-10-17)
+
+Packet Tracer layout: a palette column of icon tiles (Network, End devices, Cables) beside the canvas, tools in a slim row above it. Colby found the earlier tab-and-row bar fiddly. Port labels are placed outside the node shape, drawn on top with a halo, so they never hide under a node or under each other.
+
 ## Repo and notes (2026-10-15)
 
 - Netmancer lives in its own repo at `E:\Projects\Netmancer`, never inside HomeNet Dash.
