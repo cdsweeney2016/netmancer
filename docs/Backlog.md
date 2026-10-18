@@ -8,9 +8,14 @@ updated: 2026-10-15
 
 Pick from the top. Each item says what it touches so a session can scope it without reading the game file.
 
-## Next milestone: Course Module 2, Network Access
+## Next milestone: Course Module 3, IP Connectivity
 
-Fifteen lessons, listed in [Course](Course.md). They need no engine work until 2.14 and 2.15 (`kind:'stub'` until then). Order: VLANs → access ports → router-on-a-stick → trunk to SW2 → allowed list and native VLAN → CDP → voice VLAN → management SVI → SSH → console line, banner, encryption → EtherChannel → PortFast and BPDU guard → port security → Rapid PVST+ (stub) → wireless (stub). Touches content (`course.lessons`), maybe a `port_vlan`/`voice_vlan`/`native` check or two in `CHECKS`.
+Static routes, a default route, single-area OSPF between R1 and a second router R2, a floating static, first-hop redundancy (HSRP needs the engine). The lab leaves Module 2 as SW1 (VLANs 10/20/30/99, trunks, Po1 to SW2, SSH, port security) and R1 as router-on-a-stick; Module 3 adds R2 and a second site.
+
+## Module 2 follow-ups
+
+- [ ] **2.14 Rapid PVST+ and 2.15 wireless** are stubs until the spanning tree engine and a wireless model exist.
+- [ ] **Command cards for Module 2** (VLANs, trunks, EtherChannel, port security, SSH, CDP) in `cmdDrill.cards`.
 
 ## Academy guide follow-ups
 
@@ -66,3 +71,4 @@ Colby's fidelity priorities: spanning tree, ACLs and NAT, services (DHCP relay, 
 - [x] Lab mode + CCNA course Module 1 (15 lessons), plain terms by default (2026-10-15)
 - [x] Command drill: 46 Module 1 cards answered in the real console, spaced repetition, Commands tab (2026-10-17)
 - [x] Drill statistics: mastery tiers, weak spots, Start here recommendation, 14 badges, session summaries (2026-10-17)
+- [x] Course Module 2, Network Access: 13 lessons (VLANs → port security) plus two stubs (2026-10-17)
