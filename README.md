@@ -19,7 +19,7 @@ Every command, keyword and protocol is real. Only trademarked brands get fiction
 | --- | --- |
 | `NetmancerCore` | The engine: network simulation, the RuneOS CLI, the PC shells, grading, the ticket picker, review scheduling. No DOM or storage. |
 | `NetmancerContent` | Data only: topologies, tickets, bad tickets, wiki pages, exam objectives, ranks. |
-| `WebPlatform` | The storage and clipboard adapter, so the game can be ported to Electron/Steam later. |
+| `WebPlatform` | The storage and clipboard adapter, so the game can be ported to a desktop app later. |
 | `NetmancerOS` | The UI: title screen, workstation (Mail, Terminal, Files, Map, Browser, Skills, Settings), and the Academy. |
 
 ## Testing

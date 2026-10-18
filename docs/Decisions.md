@@ -24,7 +24,6 @@ Every command, keyword, protocol name and output format is real, so what the pla
 | Unlocks | Academy is fully open. Career keeps era and rank gates |
 | Practice from Career | A failed ticket's debrief, or two failed checks, offers *Practise in the Academy* preset to its objectives. The career ticket and network are kept and its SLA clock pauses |
 | No Endless mode | Career covers it (Night Watch now, contract work later). Academy has a timed mixed set, later the Trial |
-| Steam | One product; Career leads the store page, Academy is a feature bullet; achievements split by mode. Free web edition = Career Era 1 + Academy limited to Era 1 objectives |
 
 ## Bad tickets (2026-10-06)
 
