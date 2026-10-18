@@ -29,6 +29,10 @@ Every command, keyword, protocol name and output format is real, so what the pla
 
 Five kinds (vague, user error, duplicate, wrong team, misleading diagnosis), graded by `triage`. Checking before acting earns +20% XP; closing unverified halves XP and costs reputation; changing config on a no-change ticket costs 10 reputation; asking for a password costs 10. About 20% of incoming tickets, more in Night Watch.
 
+## Study theme and title screen: the Layer Eight look (2026-10-17)
+
+Colby likes the console but not the theme; he wants the game styled like the staged Layer Eight Systems redesign (`D:layereightsystems`, `app/globals.css`): near-black slate surfaces (`#0a0d12` page, `#10151c` cards, `#161c25` inputs), lines `#242c37`/`#33404f`, ink `#e6edf3` / dim `#a3afbc`, one signal-green accent `#3ddc97` with `#04140c` text on it, warn `#f5c451`, error `#ff8080`, radii 12 and 8, Inter for text and IBM Plex Mono for labels, headings 600 with −0.02em tracking, a faint 48 px blueprint grid. Applied to Lab & Course, the Academy and the title screen; the career skins and the Tabby console are untouched. Dark only (`color-scheme: dark`), like the site. Fonts come from Google Fonts and fall back to system fonts offline.
+
 ## Academy look (2026-10-06)
 
 The Academy has its own plain study theme, independent of the career skin: flat background, solid dark header, white cards, and it follows the OS light/dark setting. Reason: the career skins' patterned wallpapers made the Academy text hard to read, and the skins' chrome styles leaked into the Academy header.
