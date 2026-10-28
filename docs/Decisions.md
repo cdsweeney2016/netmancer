@@ -102,6 +102,10 @@ Colby: the Academy should guide you to the answer and make you type the commands
 
 The console log wraps long lines (`pre-wrap`, `overflow-wrap: anywhere`) instead of scrolling sideways, so a narrower window keeps everything readable. Tables lose their alignment when they wrap, which is what a real terminal does too.
 
+## Lab map camera (2026-10-28)
+
+The map is a camera, not a scrolling page: the SVG always fills its box and the viewBox carries zoom and pan, so there are no scrollbars and the view can be dragged anywhere at any zoom (Colby: "I just want to drag the perspective"). Fit recentres at 1x.
+
 ## Lab palette (2026-10-17)
 
 Packet Tracer layout: a palette column of icon tiles (Network, End devices, Cables) beside the canvas, tools in a slim row above it. Colby found the earlier tab-and-row bar fiddly. Port labels are placed outside the node shape, drawn on top with a halo, so they never hide under a node or under each other.
