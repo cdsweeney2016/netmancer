@@ -14,6 +14,7 @@ Static routes, a default route, single-area OSPF between R1 and a second router 
 
 ## Module 2 follow-ups
 
+- [ ] **IP phone PC port.** Phones have one port; a real phone bridges a PC through its second port (untagged data VLAN, tagged voice). Needs a two-port bridging host in the engine, then lesson 2.07 can put PC1 behind PH1 (Colby hit this on 2026-10-28).
 - [ ] **2.14 Rapid PVST+ and 2.15 wireless** are stubs until the spanning tree engine and a wireless model exist.
 - [ ] **Command cards for Module 2** (VLANs, trunks, EtherChannel, port security, SSH, CDP) in `cmdDrill.cards`.
 
