@@ -47,7 +47,7 @@ Domain `lab.local`. Module 1: LAN A `192.168.10.0/24` (R1 .1, SRV1 .5, DHCP from
 | 2.03 | 2.2, 1.6 | Router-on-a-stick: one cable, every VLAN | trunk_up, iface_ip ×2, iface_down, lease, reach |  |
 | 2.04 | 2.2, 2.1, 4.3 | A trunk to SW2 | has_link, trunk_up ×2, vlan_exists, port_vlan, lease, reach |  |
 | 2.05 | 2.2 | Allowed list and native VLAN | native ×2, not_all ×2, vlan_exists · keeps: reach |  |
-| 2.06 | 2.3 | CDP: who is on the other end | ran ×2, port_desc ×2 |  |
+| 2.06 | 2.3 | CDP: who is on the other end | ran ×2, port_desc ×3 |  |
 | 2.07 | 2.1, 4.3 | A voice VLAN for an IP phone | has_device, has_link, voice_vlan, port_vlan, lease |  |
 | 2.08 | 2.8, 2.1 | A management address for each switch | iface_ip, svi_ip ×2, default_gw ×2, reach ×2 |  |
 | 2.09 | 4.8, 5.3, 2.8 | SSH to the switch | ssh_ok, ssh_only, running_has, saved, ran |  |
