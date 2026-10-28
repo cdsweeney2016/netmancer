@@ -3828,7 +3828,7 @@ function labStatus(){ var st=$('.lab-status',labMapEl); if(!st) return; var t=''
   else if(LAB.sel&&LAB.sel.link!=null){ var l=net.links[LAB.sel.link]; if(l){ var ls=linkState(net,l); t=l.a.dev+' '+C.shortIf(l.a.if)+' ↔ '+l.b.dev+' '+C.shortIf(l.b.if)+' · '+(l.cable||'copper')+' cable · '+ls.t; } }
   else t='Select tool: drag a device to move it, drag the background to pan, scroll or Ctrl+wheel to zoom, double-click for a console, right-click for the menu. Fit recentres.'; st.textContent=t; }
 function labSelPaint(){ if(!labMapEl) return; $$('.lab-canvas .sel',labMapEl).forEach(function(x){ x.classList.remove('sel'); }); var t=null; if(LAB.sel&&LAB.sel.dev) t=$('.lab-canvas [data-dev="'+LAB.sel.dev+'"]',labMapEl); else if(LAB.sel&&LAB.sel.link!=null) t=$('.lab-canvas .lk[data-i="'+LAB.sel.link+'"]',labMapEl); if(t) t.classList.add('sel'); labStatus(); }
-function labSvgPoint(sv,e){ var r=sv.getBoundingClientRect(), vb=sv.viewBox.baseVal; return {x:(e.clientX-r.left)/r.width*vb.width,y:(e.clientY-r.top)/r.height*vb.height}; }
+function labSvgPoint(sv,e){ var r=sv.getBoundingClientRect(), vb=sv.viewBox.baseVal; return {x:vb.x+(e.clientX-r.left)/r.width*vb.width,y:vb.y+(e.clientY-r.top)/r.height*vb.height}; }
 function labPointerDown(e){ if(e.button!==0&&e.pointerType==='mouse') return; var cv=e.currentTarget, g=e.target.closest('[data-dev]'), lk=e.target.closest('.lk,.lkhit'); closePops();
   if(LAB.tool==='cable'&&g){ labCableClick(g.getAttribute('data-dev'),e); return; }
   if(lk&&LAB.tool!=='cable'){ LAB.sel={link:+lk.getAttribute('data-i')}; labSelPaint(); return; }
