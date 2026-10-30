@@ -118,3 +118,7 @@ A failing reach goal in a lesson says why ("PC1 reaches PC3 — PC1 has no defau
 
 - Netmancer lives in its own repo at `E:\Projects\Netmancer`, never inside HomeNet Dash.
 - Project knowledge is kept in `docs/` as an Obsidian vault, so a session reads these pages instead of the game file. The design doc stays the long-form reference; decisions made in sessions are recorded here first.
+
+## Reference links are vendor-neutral and checked (2026-10-29)
+
+Each lesson ends its brief with a Learn more list built from the exam objective, not hand-typed per lesson, so 40 lessons share 30 curated lists. Sources are Wikipedia, RFCs and the Cisco exam blueprint: stable URLs that do not need a login and do not name a vendor product inside the game world (the blueprint is the one exception, since the course follows it). Every URL was fetched once when added (.bak/checklinks.sh); the self-test only checks shape. Hand-picked videos are Colby's to add later as per-lesson `links`.

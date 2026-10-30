@@ -18,7 +18,7 @@ Domain `lab.local`. Module 1: LAN A `192.168.10.0/24` (R1 .1, SRV1 .5, DHCP from
 | --- | --- | --- |
 | m1 | 1.0 Network Fundamentals | 15 |
 | m2 | 2.0 Network Access | 15 |
-| m3 | 3.0 IP Connectivity (coming) | 0 |
+| m3 | 3.0 IP Connectivity | 10 |
 | m4 | 4.0 IP Services (coming) | 0 |
 | m5 | 5.0 Security Fundamentals (coming) | 0 |
 | m6 | 6.0 Automation and Programmability (coming) | 0 |
@@ -57,11 +57,21 @@ Domain `lab.local`. Module 1: LAN A `192.168.10.0/24` (R1 .1, SRV1 .5, DHCP from
 | 2.13 | 5.7 | Port security: one MAC per desk | psec, running_has, saved, ran |  |
 | 2.14 | 2.5 | Rapid PVST+: who blocks and why (stub) |  |  |
 | 2.15 | 2.6 | Wireless: an access point on the trunk (stub) |  |  |
+| 3.01 | 3.1, 3.2 | Reading the routing table | ran ×2 |  |
+| 3.02 | 3.1 | A second router: the WAN link | has_device, hostname, has_link, iface_ip ×2, iface_up ×2, ran |  |
+| 3.03 | 3.1, 3.2 | The branch LAN: connected is not enough | has_device ×2, hostname, has_link ×2, host_ip, default_gw, iface_ip, reach, not_reach |  |
+| 3.04 | 3.3 | Static routes: tell each router about the other side | route_type ×3, reach ×2, ran |  |
+| 3.05 | 3.3, 3.2 | A default route for the branch | route_present, no_static ×4, reach |  |
+| 3.06 | 3.4 | OSPF: let the routers tell each other | ospf_nbr ×2, route_type ×2, no_static, running_has ×2, reach, ran |  |
+| 3.07 | 3.4 | Passive interfaces and OSPF verification | running_has ×5, ospf_nbr, ran ×2 |  |
+| 3.08 | 3.3 | A floating static route as the backup path | has_link, iface_ip ×2, route_present ×2, route_type, failover |  |
+| 3.09 | 3.4 | Troubleshoot OSPF: the adjacency that will not form | ospf_hello, ospf_nbr, route_type, ran · keeps: ospf_hello | yes |
+| 3.10 | 3.5 | First-hop redundancy: two gateways, one address (stub) |  |  |
 
 ## Lesson schema
 
 ```
-{id, module, obj[], title, brief, requires[], setup?[steps], goals[checks], constraints?[checks], hints[], solution[steps], kind?:"stub", note?}
+{id, module, obj[], title, brief, requires[], setup?[steps], goals[checks], constraints?[checks], hints[], solution[steps], kind?:"stub", note?, links?[{t,u}]}
 ```
 
 - `brief` is plain text: a blank line starts a paragraph, a line starting with `- ` is a list item, backticks mark code. Rendered by `briefHtml`.
@@ -96,10 +106,49 @@ Domain `lab.local`. Module 1: LAN A `192.168.10.0/24` (R1 .1, SRV1 .5, DHCP from
 - 2.6 Wireless architectures
 - 2.8 Device management access
 - 3.1 Routing table components
+- 3.2 Router forwarding decisions
+- 3.3 IPv4 static routing
+- 3.4 Single-area OSPFv2
+- 3.5 First hop redundancy
 - 4.3 DHCP and DNS
 - 4.8 Remote access with SSH
 - 5.3 Local passwords and device access
 - 5.7 Layer 2 security
+
+## References
+
+Each lesson shows a Learn more list: the links for its objectives from `course.links` (vendor-neutral: Wikipedia, RFCs, the exam blueprint under `*`), plus any `links[{t,u}]` of its own. Hand-picked videos are Colby's to add later.
+
+| Objective | Links |
+| --- | --- |
+| * | [CCNA 200-301 exam topics (Cisco Learning Network)](https://learningnetwork.cisco.com/s/ccna-exam-topics) |
+| 1.1 Network components | [Router (Wikipedia)](https://en.wikipedia.org/wiki/Router_(computing)), [Network switch (Wikipedia)](https://en.wikipedia.org/wiki/Network_switch), [Ethernet frame (Wikipedia)](https://en.wikipedia.org/wiki/Ethernet_frame) |
+| 1.10 Verify client IP parameters | [ipconfig (Wikipedia)](https://en.wikipedia.org/wiki/Ipconfig), [Link-local address and APIPA (Wikipedia)](https://en.wikipedia.org/wiki/Link-local_address), [RFC 3927: Dynamic Configuration of IPv4 Link-Local Addresses](https://www.rfc-editor.org/rfc/rfc3927) |
+| 1.11 Wireless principles | [Wireless LAN (Wikipedia)](https://en.wikipedia.org/wiki/Wireless_LAN), [IEEE 802.11 (Wikipedia)](https://en.wikipedia.org/wiki/IEEE_802.11) |
+| 1.13 Switching concepts | [MAC address (Wikipedia)](https://en.wikipedia.org/wiki/MAC_address), [Forwarding information base, the MAC table (Wikipedia)](https://en.wikipedia.org/wiki/Forwarding_information_base), [Address Resolution Protocol (Wikipedia)](https://en.wikipedia.org/wiki/Address_Resolution_Protocol), [RFC 826: ARP](https://www.rfc-editor.org/rfc/rfc826) |
+| 1.2 Network topology architectures | [Network topology (Wikipedia)](https://en.wikipedia.org/wiki/Network_topology), [Local area network (Wikipedia)](https://en.wikipedia.org/wiki/Local_area_network) |
+| 1.3 Physical interfaces and cabling | [Ethernet over twisted pair (Wikipedia)](https://en.wikipedia.org/wiki/Ethernet_over_twisted_pair), [Medium-dependent interface, MDI-X and crossover (Wikipedia)](https://en.wikipedia.org/wiki/Medium-dependent_interface), [Small form-factor pluggable (Wikipedia)](https://en.wikipedia.org/wiki/Small_Form-factor_Pluggable) |
+| 1.4 Interface and cable issues | [Autonegotiation (Wikipedia)](https://en.wikipedia.org/wiki/Autonegotiation), [Duplex mismatch (Wikipedia)](https://en.wikipedia.org/wiki/Duplex_mismatch) |
+| 1.5 TCP and UDP | [Transmission Control Protocol (Wikipedia)](https://en.wikipedia.org/wiki/Transmission_Control_Protocol), [User Datagram Protocol (Wikipedia)](https://en.wikipedia.org/wiki/User_Datagram_Protocol), [RFC 9293: TCP](https://www.rfc-editor.org/rfc/rfc9293), [RFC 768: UDP](https://www.rfc-editor.org/rfc/rfc768) |
+| 1.6 IPv4 addressing and subnetting | [Subnet (Wikipedia)](https://en.wikipedia.org/wiki/Subnet), [Classless Inter-Domain Routing (Wikipedia)](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing), [RFC 4632: CIDR](https://www.rfc-editor.org/rfc/rfc4632) |
+| 1.7 Private IPv4 addressing | [Private network (Wikipedia)](https://en.wikipedia.org/wiki/Private_network), [RFC 1918: Address Allocation for Private Internets](https://www.rfc-editor.org/rfc/rfc1918) |
+| 2.1 VLANs across switches | [VLAN (Wikipedia)](https://en.wikipedia.org/wiki/VLAN), [Broadcast domain (Wikipedia)](https://en.wikipedia.org/wiki/Broadcast_domain) |
+| 2.2 Interswitch connectivity (trunks) | [IEEE 802.1Q (Wikipedia)](https://en.wikipedia.org/wiki/IEEE_802.1Q), [Router on a stick (Wikipedia)](https://en.wikipedia.org/wiki/Router_on_a_stick), [Dynamic Trunking Protocol (Wikipedia)](https://en.wikipedia.org/wiki/Dynamic_Trunking_Protocol) |
+| 2.3 CDP and LLDP | [Cisco Discovery Protocol (Wikipedia)](https://en.wikipedia.org/wiki/Cisco_Discovery_Protocol), [Link Layer Discovery Protocol (Wikipedia)](https://en.wikipedia.org/wiki/Link_Layer_Discovery_Protocol) |
+| 2.4 EtherChannel (LACP) | [Link aggregation and LACP (Wikipedia)](https://en.wikipedia.org/wiki/Link_aggregation), [EtherChannel (Wikipedia)](https://en.wikipedia.org/wiki/EtherChannel) |
+| 2.5 Rapid PVST+ | [Spanning Tree Protocol, incl. RSTP and PVST (Wikipedia)](https://en.wikipedia.org/wiki/Spanning_Tree_Protocol), [IEEE 802.1D (Wikipedia)](https://en.wikipedia.org/wiki/IEEE_802.1D) |
+| 2.6 Wireless architectures | [Wireless access point (Wikipedia)](https://en.wikipedia.org/wiki/Wireless_access_point), [Wireless LAN controller (Wikipedia)](https://en.wikipedia.org/wiki/Wireless_LAN_controller), [RFC 5415: CAPWAP](https://www.rfc-editor.org/rfc/rfc5415) |
+| 2.8 Device management access | [Out-of-band and in-band management (Wikipedia)](https://en.wikipedia.org/wiki/Out-of-band_management), [Default gateway (Wikipedia)](https://en.wikipedia.org/wiki/Default_gateway) |
+| 3.1 Routing table components | [Routing table (Wikipedia)](https://en.wikipedia.org/wiki/Routing_table), [Administrative distance (Wikipedia)](https://en.wikipedia.org/wiki/Administrative_distance), [Metric (Wikipedia)](https://en.wikipedia.org/wiki/Metrics_(networking)) |
+| 3.2 Router forwarding decisions | [Longest prefix match (Wikipedia)](https://en.wikipedia.org/wiki/Longest_prefix_match), [IP routing (Wikipedia)](https://en.wikipedia.org/wiki/IP_routing), [RFC 1812: Requirements for IP Version 4 Routers](https://www.rfc-editor.org/rfc/rfc1812.html) |
+| 3.3 IPv4 static routing | [Static routing (Wikipedia)](https://en.wikipedia.org/wiki/Static_routing), [Default route (Wikipedia)](https://en.wikipedia.org/wiki/Default_route) |
+| 3.4 Single-area OSPFv2 | [Open Shortest Path First (Wikipedia)](https://en.wikipedia.org/wiki/Open_Shortest_Path_First), [RFC 2328: OSPF Version 2](https://www.rfc-editor.org/rfc/rfc2328), [Link-state routing protocol (Wikipedia)](https://en.wikipedia.org/wiki/Link-state_routing_protocol) |
+| 3.5 First hop redundancy | [First-hop redundancy protocol (Wikipedia)](https://en.wikipedia.org/wiki/First-hop_redundancy_protocol), [Hot Standby Router Protocol (Wikipedia)](https://en.wikipedia.org/wiki/Hot_Standby_Router_Protocol), [RFC 2281: HSRP](https://www.rfc-editor.org/rfc/rfc2281.html), [RFC 5798: VRRP](https://www.rfc-editor.org/rfc/rfc5798) |
+| 4.3 DHCP and DNS | [Dynamic Host Configuration Protocol (Wikipedia)](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol), [RFC 2131: DHCP](https://www.rfc-editor.org/rfc/rfc2131.html), [Domain Name System (Wikipedia)](https://en.wikipedia.org/wiki/Domain_Name_System), [RFC 1034: DNS concepts](https://www.rfc-editor.org/rfc/rfc1034) |
+| 4.6 DHCP client and relay | [DHCP relay agent (Wikipedia, in the DHCP article)](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol#Relaying), [RFC 3046: DHCP Relay Agent Information Option](https://www.rfc-editor.org/rfc/rfc3046) |
+| 4.8 Remote access with SSH | [Secure Shell (Wikipedia)](https://en.wikipedia.org/wiki/Secure_Shell), [RFC 4253: SSH Transport Layer Protocol](https://www.rfc-editor.org/rfc/rfc4253), [Telnet (Wikipedia)](https://en.wikipedia.org/wiki/Telnet) |
+| 5.3 Local passwords and device access | [Password strength (Wikipedia)](https://en.wikipedia.org/wiki/Password_strength), [Authentication, authorization and accounting (Wikipedia)](https://en.wikipedia.org/wiki/AAA_(computer_security)) |
+| 5.7 Layer 2 security | [Port security (Wikipedia)](https://en.wikipedia.org/wiki/Port_security), [Spanning Tree Protocol: BPDU guard and PortFast (Wikipedia)](https://en.wikipedia.org/wiki/Spanning_Tree_Protocol), [MAC flooding (Wikipedia)](https://en.wikipedia.org/wiki/MAC_flooding) |
 
 ## Command deck
 

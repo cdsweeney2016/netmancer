@@ -8,7 +8,15 @@ updated: 2026-10-15
 
 Pick from the top. Each item says what it touches so a session can scope it without reading the game file.
 
-## Next milestone: Course Module 3, IP Connectivity
+## Done 2026-10-29: Course Module 3, IP Connectivity (3.01-3.09, 3.10 FHRP stub)
+
+R2 over 10.0.12.0/30 on R1 Gi0/1, branch SW3 + PC4 on 192.168.40.0/24, statics, default, OSPF area 0 with router-ids 1.1.1.1 / 2.2.2.2, passive LAN interfaces, backup link 10.0.21.0/30 on Gi0/2 with floating statics (AD 200), hello-timer fault lesson. HSRP (3.10) waits for the engine.
+
+## Next milestone: Course Module 4, IP Services
+
+NAT/PAT needs an internet device in the course lab (an ISP router the lab cannot add yet), DHCP relay (`ip helper-address` is not in the engine), NTP, syslog and SNMP need engine models. Also the HSRP engine for 3.10 and the STP engine for 2.14.
+
+## Was: Module 3 plan
 
 Static routes, a default route, single-area OSPF between R1 and a second router R2, a floating static, first-hop redundancy (HSRP needs the engine). The lab leaves Module 2 as SW1 (VLANs 10/20/30/99, trunks, Po1 to SW2, SSH, port security) and R1 as router-on-a-stick; Module 3 adds R2 and a second site.
 
@@ -55,7 +63,8 @@ Static routes, a default route, single-area OSPF between R1 and a second router 
 Colby's fidelity priorities: spanning tree, ACLs and NAT, services (DHCP relay, HSRP, NTP, syslog). IPv6 last.
 
 - [ ] **Module 2 (2.14):** Rapid PVST+ state: root election, port roles and states, `show spanning-tree`. PortFast and BPDU guard already exist as errdisable triggers.
-- [ ] **Module 3:** static routes and OSPF already exist; add `show ip ospf` detail, passive interfaces, default routes.
+- [x] **Module 3:** shipped 2026-10-29 (10 lessons).
+- [ ] **Lesson links:** Colby adds hand-picked YouTube videos per lesson (`links:[{t,u}]` on the lesson).
 - [ ] **Module 4 (IP Services):** NAT translation table (`show ip nat translations`), DHCP relay (`ip helper-address`), HSRP (`standby`, `show standby`), NTP (`ntp server`, `show ntp status`), syslog to a server (`logging host`).
 - [ ] **Module 5 (Security):** ACLs that filter traffic (today `access-list` only feeds NAT), `show access-lists` hit counts, AAA basics.
 - [ ] **Wireless (2.15, 1.x):** basic WLC/AP state.
